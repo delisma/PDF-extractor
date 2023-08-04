@@ -12,9 +12,11 @@ import pandas as pd
 import json
 import requests
 
-# Set the OpenAI API key
+# Load environment variables from .env file
+load_dotenv()
 
-os.environ["OPENAI_API_KEY"] = 'your-api-key'
+# Set the OpenAI API key
+os.environ["OPENAI_API_KEY"] = os.getenv('OPENAI_API_KEY')
 
 # 1 Convert a PDF file into images using PyPDFium.
 def convert_pdf_to_images(pdf_path):
