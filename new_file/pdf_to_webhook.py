@@ -15,9 +15,6 @@ import requests
 # Load environment variables from .env file
 load_dotenv()
 
-# Set the OpenAI API key
-os.environ["OPENAI_API_KEY"] = os.getenv('OPENAI_API_KEY')
-
 # 1 Convert a PDF file into images using PyPDFium.
 def convert_pdf_to_images(pdf_path):
     # TODO: Convert the PDF to images
