@@ -15,7 +15,7 @@ import requests
 # Load environment variables from .env file
 load_dotenv()
 
-# 1 Convert a PDF file into images using PyPDFium.
+# 1 Convert a PDF file into images using PyPDFium2.
 def convert_pdf_to_images(pdf_path):
     # TODO: Convert the PDF to images
 
