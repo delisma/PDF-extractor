@@ -113,10 +113,13 @@ def send_to_make(data):
 # 5. Streamlit app
 def main():
     default_data_points = """{
-        "invoice_item": "what is the item that charged",
-        "Amount": "how much does the invoice item cost in total",
-        "Company_name": "company that issued the invoice",
-        "invoice_date": "when was the invoice issued",
+        "Company": "what is the name of the company",
+        "Address": "What is their address in Ottawa",
+        "Phone number 1": "What is their first phone number",
+        "Phone number 2": "What i s their second phone number",
+        "Website": "What's their website",
+        "Employee count" : "How many local employees do they have",
+        "Local executive": " Who's in charge in Ottawa"
     }"""
 
     st.set_page_config(page_title="Doc extraction", page_icon=":bird:")
