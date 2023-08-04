@@ -16,18 +16,25 @@ import requests
 load_dotenv()
 
 import pypdfium2 as pdfium
+from io import BytesIO
 
 # 1 Convert a PDF file into images using PyPDFium2.
-def convert_pdf_to_images(pdf_path):
+def convert_pdf_to_images(pdf_path, scale=300/72):
     # Load the PDF
     pdf = pdfium.PdfDocument(pdf_path)
     
     # Convert each page to an image
     images = []
     for page in range(pdf.page_count):
-        bitmap = pdf.render_page(page)
+        bitmap = pdf.render_page(page, scale=scale)
         image = Image.frombuffer('RGBA', (bitmap.width, bitmap.height), bitmap.buffer, 'raw', 'RGBA', 0, 1)
-        images.append(image)
+        
+        # Save the image to a BytesIO object
+        image_data = BytesIO()
+        image.save(image_data, format='PNG')
+        image_data.seek(0)
+        
+        images.append(image_data)
     
     return images
 
