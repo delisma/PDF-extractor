@@ -15,12 +15,20 @@ import requests
 # Load environment variables from .env file
 load_dotenv()
 
-from pdf2image import convert_from_path
+import pypdfium2 as pdfium
 
 # 1 Convert a PDF file into images using PyPDFium2.
 def convert_pdf_to_images(pdf_path):
-    # Convert the PDF to images
-    images = convert_from_path(pdf_path)
+    # Load the PDF
+    pdf = pdfium.PdfDocument(pdf_path)
+    
+    # Convert each page to an image
+    images = []
+    for page in range(pdf.page_count):
+        bitmap = pdf.render_page(page)
+        image = Image.frombuffer('RGBA', (bitmap.width, bitmap.height), bitmap.buffer, 'raw', 'RGBA', 0, 1)
+        images.append(image)
+    
     return images
 
 # 2 Extract text from the images using PyTesseract.
