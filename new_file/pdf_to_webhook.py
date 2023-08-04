@@ -5,6 +5,8 @@ from pytesseract import image_to_string
 from PIL import Image
 from io import BytesIO
 import pypdfium2 as pdfium
+from urllib.parse import urlparse
+from requests import get
 import streamlit import st
 import multiprocessing
 from tempfile import NamedTemporaryFile
@@ -59,9 +61,7 @@ def extract_info_from_text(text):
 # 4 Send the extracted data to make.com via a webhook.
 def send_data_to_webhook(data):
     # TODO: Send the data to make.com via a webhook
-from requests import get
-
-from urllib.parse import urlparse
+# No changes here
 
 def extract_content_from_url(url_or_path):
     # Check if the input is a URL or a local file path
