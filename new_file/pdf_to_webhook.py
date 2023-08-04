@@ -1,5 +1,6 @@
 from langchain.chat_models import ChatOpenAi
 from langchain.prompts import PromptTemplate
+from langchain.chains import LLMChain
 from dotenv import load_dotenv
 from pytesseract import image_to_string
 from PIL import Image
@@ -7,7 +8,7 @@ from io import BytesIO
 import pypdfium2 as pdfium
 from urllib.parse import urlparse
 from requests import get
-import streamlit import st
+import streamlit as st
 import multiprocessing
 from tempfile import NamedTemporaryFile
 import pandas as pd
@@ -54,12 +55,12 @@ def extract_text_from_image(images):
     return ' '.join(texts)
 
 # 3 Extract structured information from the text using the Langchain library to access the OpenAI API.
-def extract_info_from_text(text):
+# def extract_info_from_text(text):
     # TODO: Extract structured information from the text
 
 
 # 4 Send the extracted data to make.com via a webhook.
-def send_data_to_webhook(data):
+# def send_data_to_webhook(data):
     # TODO: Send the data to make.com via a webhook
 # No changes here
 
@@ -87,6 +88,11 @@ def extract_content_from_url(url_or_path):
 
 def main():
     # TODO: Main function to tie all the steps together
+    content = extract_content_from_url(
+        "DE20220228.pdf"
+    )
+    print(content)
 
 if __name__ == "__main__":
+    multiprocessing.freeze_support()
     main()
