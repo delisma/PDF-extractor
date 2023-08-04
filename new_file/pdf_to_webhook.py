@@ -36,11 +36,20 @@ def convert_pdf_to_images(pdf_path, scale=300/72):
         
         images.append(image_data)
     
-    return images
+from pytesseract import image_to_string
 
 # 2 Extract text from the images using PyTesseract.
-def extract_text_from_image(image_path):
-    # TODO: Extract text from the image
+def extract_text_from_image(images):
+    # Initialize an empty list to store the text from each image
+    texts = []
+    
+    # Iterate over the list of images
+    for image in images:
+        # Convert the image to text and append it to the list
+        texts.append(pytesseract.image_to_string(image))
+    
+    # Join the list of texts into a single string and return it
+    return ' '.join(texts)
 
 # 3 Extract structured information from the text using the Langchain library to access the OpenAI API.
 def extract_info_from_text(text):
