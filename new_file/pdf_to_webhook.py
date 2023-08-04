@@ -15,9 +15,13 @@ import requests
 # Load environment variables from .env file
 load_dotenv()
 
+from pdf2image import convert_from_path
+
 # 1 Convert a PDF file into images using PyPDFium2.
 def convert_pdf_to_images(pdf_path):
-    # TODO: Convert the PDF to images
+    # Convert the PDF to images
+    images = convert_from_path(pdf_path)
+    return images
 
 # 2 Extract text from the images using PyTesseract.
 def extract_text_from_image(image_path):
