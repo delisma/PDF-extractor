@@ -59,7 +59,24 @@ def extract_info_from_text(text):
 # 4 Send the extracted data to make.com via a webhook.
 def send_data_to_webhook(data):
     # TODO: Send the data to make.com via a webhook
+from requests import get
 
+def extract_content_from_url(url):
+    # Download the PDF file from the URL
+    response = get(url)
+    
+    # Save the PDF to a temporary file
+    with NamedTemporaryFile(suffix=".pdf", delete=False) as temp_pdf:
+        temp_pdf.write(response.content)
+    
+    # Convert the PDF into images
+    images = convert_pdf_to_images(temp_pdf.name)
+    
+    # Extract the text from the images
+    text = extract_text_from_image(images)
+    
+    # Return the extracted text
+    return text
 
 def main():
     # TODO: Main function to tie all the steps together
