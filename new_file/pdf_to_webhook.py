@@ -61,16 +61,23 @@ def send_data_to_webhook(data):
     # TODO: Send the data to make.com via a webhook
 from requests import get
 
-def extract_content_from_url(url):
-    # Download the PDF file from the URL
-    response = get(url)
-    
-    # Save the PDF to a temporary file
-    with NamedTemporaryFile(suffix=".pdf", delete=False) as temp_pdf:
-        temp_pdf.write(response.content)
-    
+from urllib.parse import urlparse
+
+def extract_content_from_url(url_or_path):
+    # Check if the input is a URL or a local file path
+    parsed = urlparse(url_or_path)
+    if parsed.scheme in ('http', 'https'):
+        # It's a URL, download the file
+        response = get(url_or_path)
+        with NamedTemporaryFile(suffix=".pdf", delete=False) as temp_pdf:
+            temp_pdf.write(response.content)
+        file_path = temp_pdf.name
+    else:
+        # It's a local file path, no need to download
+        file_path = url_or_path
+
     # Convert the PDF into images
-    images = convert_pdf_to_images(temp_pdf.name)
+    images = convert_pdf_to_images(file_path)
     
     # Extract the text from the images
     text = extract_text_from_image(images)
